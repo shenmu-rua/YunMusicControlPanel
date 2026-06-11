@@ -1,0 +1,27 @@
+# Build output
+build/
+dist/
+
+# Config with real server addresses
+yunmusic.ini
+
+# IDE
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Claude Code
+.claude/
+
+# Playwright MCP
+.playwright-mcp/
+
+# Spec workflow
+.spec-workflow/
+
+# OS
+Thumbs.db
+Desktop.ini
+*.bak
+CLAUDE.md

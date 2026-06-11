@@ -1,0 +1,5 @@
+// Resource script for YunMusic plugin
+#include "winuser.h"
+
+// Icon resource (ID = 1)
+1 ICON "yunmusic.ico"
