@@ -92,13 +92,26 @@ int lrc_parse(LyricData* data, const char* lrc_text) {
                     data->capacity *= 2;
                     LyricLine* new_lines = (LyricLine*)realloc(data->lines,
                         sizeof(LyricLine) * data->capacity);
-                    if (!new_lines) break;
+                    if (!new_lines) {
+                        lrc_free(data);
+                        return -1;
+                    }
                     data->lines = new_lines;
                 }
 
                 data->lines[data->count].timestamp_ms = ts_ms;
-                strncpy(data->lines[data->count].text, text_start, text_len);
-                data->lines[data->count].text[text_len] = '\0';
+                size_t copy_len = (size_t)text_len;
+                size_t max_len = sizeof(data->lines[data->count].text) - 1;
+                if (copy_len > max_len) {
+                    copy_len = max_len;
+                    /* Do not leave an incomplete UTF-8 code point at the end. */
+                    while (copy_len > 0 &&
+                           ((unsigned char)text_start[copy_len] & 0xC0) == 0x80) {
+                        copy_len--;
+                    }
+                }
+                memcpy(data->lines[data->count].text, text_start, copy_len);
+                data->lines[data->count].text[copy_len] = '\0';
                 data->count++;
             }
 

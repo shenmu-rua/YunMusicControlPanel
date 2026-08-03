@@ -39,6 +39,22 @@ typedef struct {
     int              count;
 } NeteasePlaylistResult;
 
+#define NETEASE_COOKIE_MAX 4096
+#define NETEASE_QR_SUCCESS 0
+#define NETEASE_QR_WAITING 1
+#define NETEASE_QR_CONFIRM 2
+#define NETEASE_QR_ERROR  (-1)
+#define NETEASE_QR_EXPIRED (-2)
+#define NETEASE_AUTH_ERROR (-1)
+#define NETEASE_AUTH_INVALID (-2)
+
+typedef struct {
+    char cookie[NETEASE_COOKIE_MAX];
+    char user_id[64];
+    char nickname[128];
+    int  logged_in;
+} NeteaseAuthSession;
+
 /*
  * api_netease_init - Initialize the Netease API client
  * base_url: e.g. "http://your-server:3000"
@@ -104,10 +120,8 @@ void api_netease_search_playlists_free(NeteasePlaylistResult* result);
  */
 int api_netease_get_playlist_tracks(const char* playlist_id, NeteaseSearchResult* result);
 
-/*
- * api_netease_set_cookie - Set MUSIC_U cookie for authenticated requests
- */
-void api_netease_set_cookie(const char* music_u);
+/* Authenticated requests support both HTTP and HTTPS API deployments. */
+int api_netease_auth_supported(void);
 
 /*
  * api_netease_qr_login_key - Get a QR login key
@@ -117,7 +131,7 @@ int api_netease_qr_login_key(char* key_out, int key_size);
 /*
  * api_netease_qr_login_create - Create QR code URL for login
  */
-int api_netease_qr_login_create(const char* key, char* qrurl_out, int url_size);
+int api_netease_qr_login_create(const char* key, char** qrimg_out);
 
 /*
  * api_netease_qr_login_check - Check QR login status
@@ -125,10 +139,17 @@ int api_netease_qr_login_create(const char* key, char* qrurl_out, int url_size);
  */
 int api_netease_qr_login_check(const char* key, char* cookie_out, int cookie_size);
 
+/* Validate the session; returns NETEASE_AUTH_INVALID for an expired login. */
+int api_netease_login_status(NeteaseAuthSession* session);
+
+/* Best-effort server logout for an existing session. */
+int api_netease_logout(const NeteaseAuthSession* session);
+
 /*
  * api_netease_get_daily_songs - Get daily recommendations (requires MUSIC_U cookie)
  */
-int api_netease_get_daily_songs(NeteaseSearchResult* result);
+int api_netease_get_daily_songs(const NeteaseAuthSession* session,
+                                NeteaseSearchResult* result);
 
 #ifdef __cplusplus
 }

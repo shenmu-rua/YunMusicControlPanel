@@ -16,7 +16,13 @@ typedef struct {
     int  poll_interval_ms;      /* Status polling interval (default: 2000) */
     int  window_x;              /* Window position X */
     int  window_y;              /* Window position Y */
+    int  window_width;          /* Main window width */
+    int  window_height;         /* Main window height */
     int  always_on_top;         /* Keep window on top */
+    int  desktop_lyric_x;       /* Desktop lyric window position X */
+    int  desktop_lyric_y;       /* Desktop lyric window position Y */
+    int  desktop_lyric_locked;  /* Desktop lyric click-through state */
+    int  desktop_lyric_font_size; /* Main desktop lyric font size */
     char music_u[512];          /* Netease MUSIC_U cookie for login */
     char update_url[256];       /* Version check URL (GitHub API or custom JSON) */
 } YunConfig;
@@ -36,6 +42,9 @@ YunConfig* config_get(void);
  * config_save - Save current config to INI file
  */
 int config_save(void);
+
+/* Remove a successfully migrated legacy plaintext MUSIC_U value. */
+int config_clear_legacy_music_u(void);
 
 #ifdef __cplusplus
 }

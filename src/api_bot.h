@@ -5,6 +5,8 @@
 #ifndef API_BOT_H
 #define API_BOT_H
 
+#include "bot_queue_parser.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -26,6 +28,7 @@ typedef struct {
     float    volume;          /* Volume 0-100 */
     char     repeat[32];      /* Repeat mode */
     int      random;          /* Random mode */
+    BotQueuePreview queue;    /* Authoritative preview from `yun list` */
 } BotStatus;
 
 /*
@@ -33,6 +36,18 @@ typedef struct {
  * base_url: e.g. "http://your-server:58913"
  */
 void api_bot_init(const char* base_url);
+
+/*
+ * api_bot_cancel_pending - Reject queued requests during plugin shutdown.
+ * The currently running synchronous request remains bounded by short timeouts.
+ */
+void api_bot_cancel_pending(void);
+
+/*
+ * api_bot_cleanup - Close persistent HTTP connection.
+ * Call on plugin shutdown.
+ */
+void api_bot_cleanup(void);
 
 /*
  * api_bot_poll_status - Poll current bot status (song, volume, repeat, random)
@@ -69,6 +84,12 @@ int api_bot_prev(void);
  * Returns 0 on success, -1 on error
  */
 int api_bot_set_volume(int volume);
+
+/*
+ * api_bot_send_command_get - Send a raw ts3audiobot GET command.
+ * command: e.g. "(/yun/play/123)"
+ */
+int api_bot_send_command_get(const char* command);
 
 /*
  * api_bot_seek - Seek to position in seconds

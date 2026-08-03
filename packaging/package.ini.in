@@ -1,0 +1,6 @@
+Name = YunMusic
+Type = Plugin
+Author = shenmu
+Version = @PROJECT_VERSION@
+Platforms = win64
+Description = "Music control panel for ts3audiobot with lyrics, cover art, and NetEase Cloud Music search."

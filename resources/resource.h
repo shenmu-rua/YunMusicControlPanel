@@ -39,6 +39,16 @@
 #define IDC_BTN_SEARCH_MODE     1044
 #define IDC_BTN_DESKTOP_LYRIC   1045
 #define IDC_BTN_DAILY           1046
+#define IDC_BTN_ACCOUNT         1047
+#define IDC_BTN_DAILY_PLAY_ALL  1048
+#define IDC_BTN_RESULT_BACK     1049
+
+/* NetEase account window */
+#define IDC_AUTH_QR             1100
+#define IDC_AUTH_STATUS         1101
+#define IDC_AUTH_REFRESH        1102
+#define IDC_AUTH_LOGOUT         1103
+#define IDC_AUTH_CLOSE          1104
 
 /* Timer IDs */
 #define TIMER_POLL_STATUS       2000
