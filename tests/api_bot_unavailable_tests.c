@@ -8,8 +8,8 @@ int main(void) {
     ULONGLONG started;
     ULONGLONG elapsed;
 
-    /* Port 1 is expected to reject local connections immediately. */
-    api_bot_init("http://localhost:1");
+    /* The reserved .test domain must not resolve to a live Bot service. */
+    api_bot_init("http://unavailable.example.test:1");
     started = GetTickCount64();
     if (api_bot_poll_status(&status) == 0) {
         fprintf(stderr, "unexpected Bot response on closed test port\n");
