@@ -11,6 +11,10 @@ extern "C" {
 
 /* Configuration structure */
 typedef struct {
+    char api_host[256];         /* Shared API hostname or IP from yunmusic.ini */
+    char api_scheme[8];         /* Shared API scheme: http or https */
+    int  bot_api_port;          /* ts3audiobot API port */
+    int  netease_api_port;      /* Netease Cloud Music API port */
     char bot_api_url[256];      /* ts3audiobot API base URL */
     char netease_api_url[256];  /* Netease Cloud Music API URL */
     int  poll_interval_ms;      /* Status polling interval (default: 2000) */
@@ -42,6 +46,9 @@ YunConfig* config_get(void);
  * config_save - Save current config to INI file
  */
 int config_save(void);
+
+/* Rebuild both API URLs from the shared network settings. */
+int config_apply_network(void);
 
 /* Remove a successfully migrated legacy plaintext MUSIC_U value. */
 int config_clear_legacy_music_u(void);

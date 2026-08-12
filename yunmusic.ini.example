@@ -1,8 +1,11 @@
-[server]
-api_url=http://localhost:58913
+[network]
+# Change only this value when both APIs move to another host or IP.
+host=localhost
+scheme=http
+bot_port=58913
+netease_port=3000
 
 [netease]
-api_url=http://localhost:3000
 
 [ui]
 poll_interval_ms=2000

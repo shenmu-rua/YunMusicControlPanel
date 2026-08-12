@@ -29,18 +29,17 @@ ctest --test-dir build -C Release --output-on-failure
 
 1. 双击构建目录中的 `.ts3_plugin` 文件并通过 TeamSpeak Package
    Installer 安装。
-2. 首次运行后修改插件目录中的 `yunmusic.ini`，配置 `[server].api_url`
-   和 `[netease].api_url`。
+2. 首次运行后修改插件目录中的 `yunmusic.ini`。只需设置
+   `[network].host` 一处即可让两个 API 使用同一主机；协议和端口可在同一段调整。
 3. 重启 TeamSpeak，并从插件菜单打开 **Music Panel**。
 
 个人网易云账号从面板的“账号”窗口扫码登录，完整 Cookie 仅使用 Windows
 DPAPI 加密保存为插件目录中的 `yunmusic.auth`，不会发送给 Bot。旧配置中的
 明文 `music_u` 会在加密写入并回读成功后自动删除。
 `poll_interval_ms` 会被限制在 500–60000 毫秒之间。
-当前默认 Bot API 为 `http://localhost:58913`；旧版生成的
-`localhost:58913` 配置会在加载时自动迁移。
-默认网易云 API 为 `http://localhost:3000`；旧版生成的
-`localhost:3000` 配置同样会自动迁移。网易云搜索、歌词、封面、个人登录、
+默认主机为 `localhost`，Bot API 和网易云 API 分别使用 `58913` 与 `3000`
+端口。如服务运行在其他主机，只需修改 `[network].host`。源码和二进制不内置
+部署 IP。网易云搜索、歌词、封面、个人登录、
 登录状态和每日推荐均兼容 HTTP 与 HTTPS API 地址。
 
 ## 使用体验

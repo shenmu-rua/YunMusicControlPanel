@@ -45,7 +45,7 @@
 #define PATH_BUFSIZE 512
 
 #ifndef YUNMUSIC_VERSION
-#define YUNMUSIC_VERSION "1.2.14"
+#define YUNMUSIC_VERSION "1.2.15"
 #endif
 
 static struct TS3Functions ts3Functions;

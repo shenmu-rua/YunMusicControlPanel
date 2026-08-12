@@ -1153,7 +1153,7 @@ done:
 /* ======================== Version Check ======================== */
 
 #ifndef YUNMUSIC_VERSION
-#define YUNMUSIC_VERSION "1.2.14"
+#define YUNMUSIC_VERSION "1.2.15"
 #endif
 
 static int compare_versions(const char* left, const char* right) {

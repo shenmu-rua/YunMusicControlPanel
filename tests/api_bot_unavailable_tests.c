@@ -9,7 +9,7 @@ int main(void) {
     ULONGLONG elapsed;
 
     /* Port 1 is expected to reject local connections immediately. */
-    api_bot_init("http://127.0.0.1:1");
+    api_bot_init("http://localhost:1");
     started = GetTickCount64();
     if (api_bot_poll_status(&status) == 0) {
         fprintf(stderr, "unexpected Bot response on closed test port\n");
